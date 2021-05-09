@@ -1,4 +1,6 @@
 package com.dmgraphicssistem.dmvendas.service;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -6,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dmgraphicssistem.dmvendas.dto.SaleDTO;
+import com.dmgraphicssistem.dmvendas.dto.SaleSuccesDTO;
+import com.dmgraphicssistem.dmvendas.dto.SaleSumDTO;
 import com.dmgraphicssistem.dmvendas.entites.Sale;
 import com.dmgraphicssistem.dmvendas.repositories.SaleRepository;
 import com.dmgraphicssistem.dmvendas.repositories.SellerRepository;
@@ -34,5 +38,15 @@ public class SaleService {
 		 * Lambda de Sale para SaleDTO
 		 */
 		return resultBuscaBD.map(x -> new SaleDTO(x));
+	}
+	
+	@Transactional(readOnly = true)
+	public List<SaleSumDTO> amountGroupBySeller() {
+		return repository.amountGroupBySeller();
+	}
+
+	@Transactional(readOnly = true)
+	public List<SaleSuccesDTO> succesGroupBySeller() {
+		return repository.succesGroupBySeller();
 	}
 }
